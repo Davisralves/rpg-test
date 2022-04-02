@@ -1,3 +1,3 @@
 # RPG Teste
 
-Jogo em 2d com HTML, CSS, Java.
+Jogo em 2d com HTML, CSS, Javascript.
