@@ -1,0 +1,8 @@
+#game-screen {
+width: 1024px;
+height: 576px;
+}
+
+body {
+  background-color: black;
+}
