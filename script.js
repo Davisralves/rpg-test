@@ -37,7 +37,7 @@ const keys = {
     pressed: false,
   }
 }
-
+  let lastKey = '';
 function animate() {
   window.requestAnimationFrame(animate);
   const centerWidth = canvas.width / 2 - (player.width / 4) / 2; 
@@ -53,18 +53,10 @@ function animate() {
   centerHeight,
   player.width / 4,
   player.height);
-  if(keys.w.pressed) {
-    background.position.y += 3
-  }
-  if(keys.a.pressed) {
-    background.position.x += 3
-  }
-  if(keys.s.pressed) {
-    background.position.y -= 3
-  }
-  if(keys.d.pressed) {
-    background.position.x -= 3
-  }
+  if(keys.w.pressed && lastKey === 'w') background.position.y += 3
+  if(keys.a.pressed && lastKey === 'a') background.position.x += 3
+  if(keys.s.pressed && lastKey === 's') background.position.y -= 3
+  if(keys.d.pressed && lastKey === 'd') background.position.x -= 3
 }
 
 animate();
@@ -72,12 +64,16 @@ animate();
 window.addEventListener('keydown', (e) => {
   switch(e.key) {
     case 'w':
+      lastKey = 'w';
       return keys.w.pressed = true;
     case 'a':
+      lastKey = 'a';
       return keys.a.pressed = true;
     case 's': 
+      lastKey = 's';
       return keys.s.pressed = true;
     case 'd': 
+      lastKey = 'd';
       return keys.d.pressed = true;
   }
 })
