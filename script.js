@@ -8,9 +8,42 @@ const map = new Image();
 map.src = './img/test-map-rpg.png';
 const player = new Image();
 player.src = './img/player/playerDown.png';
-map.onload = () => {
-c.drawImage(map, -700, -500);
-  player.onload = () => c.drawImage(
+
+class Sprite {
+  constructor(position, image) {
+    this.position = position;
+    this.image = image;
+  }
+
+  draw() {
+    c.drawImage(this.image, this.position.x, this.position.y);
+  }
+}
+
+const position = {x: -1800, y: -980};
+const background = new Sprite(position, map);
+
+const keys = {
+  w: {
+    pressed: false,
+  },
+  a: {
+    pressed: false,
+  },
+  s: {
+    pressed: false,
+  },
+  d: {
+    pressed: false,
+  }
+}
+
+function animate() {
+  window.requestAnimationFrame(animate);
+  const centerWidth = canvas.width / 2 - (player.width / 4) / 2; 
+  const centerHeight = canvas.height / 2 - player.height / 2; 
+  background.draw();
+  c.drawImage(
   player,
   0,
   0,
@@ -20,6 +53,44 @@ c.drawImage(map, -700, -500);
   centerHeight,
   player.width / 4,
   player.height);
-const centerWidth = canvas.width / 2 - (player.width / 4) / 2; 
-const centerHeight = canvas.height / 2 - player.height / 2; 
-  } 
+  if(keys.w.pressed) {
+    background.position.y += 3
+  }
+  if(keys.a.pressed) {
+    background.position.x += 3
+  }
+  if(keys.s.pressed) {
+    background.position.y -= 3
+  }
+  if(keys.d.pressed) {
+    background.position.x -= 3
+  }
+}
+
+animate();
+
+window.addEventListener('keydown', (e) => {
+  switch(e.key) {
+    case 'w':
+      return keys.w.pressed = true;
+    case 'a':
+      return keys.a.pressed = true;
+    case 's': 
+      return keys.s.pressed = true;
+    case 'd': 
+      return keys.d.pressed = true;
+  }
+})
+
+window.addEventListener('keyup', (e) => {
+  switch(e.key) {
+    case 'w':
+      return keys.w.pressed = false;
+    case 'a':
+      return keys.a.pressed = false;
+    case 's': 
+      return keys.s.pressed = false;
+    case 'd': 
+      return keys.d.pressed = false;
+  }
+})
